@@ -1,0 +1,10 @@
+.growing {
+  flex: 1;
+}
+
+.mainer {
+  background-color: lightblue;
+  height: 40px;
+  width: 200px;  
+  overflow-y: auto;
+}
