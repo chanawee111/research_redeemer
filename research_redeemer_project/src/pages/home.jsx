@@ -12,9 +12,9 @@ import {Col,Row,Card} from 'react-bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import {Header,Contents,Sidebar,Footer} from '../layouts/public/Exporter';
-import Header_Logo from '../assets/for-rent.png'
+import Header_Logo from '../assets/owl-wisdom.png'
 import QRLine from '../assets/QRLine.png';
-import { Telephone,Envelope,Line,Facebook} from 'react-bootstrap-icons';
+import { ExclamationCircleFill,Facebook} from 'react-bootstrap-icons';
 
 
 
@@ -43,43 +43,122 @@ class Home extends React.Component {
         </OverlayTrigger>
       );
 
-      const Descrip_Header = (
-        <div className="py-5 text-light " style={{background:"#008BFF"}}> 
-          <Row>
-          <Col sm={12} className="col-md-3 d-flex justify-content-center py-4">
-          <img src={Header_Logo} alt="Logo" style={{height:'20vh'}}></img>
-          </Col>
-          <Col className="col-md-9">
+      const headerWave = (
+        <div style={{position:"relation"}}>
+          <svg viewBox="0 0 1440 320">
+  <defs>
+    <style type="text/css" dangerouslySetInnerHTML={{__html: "\n      .wave {\n        animation: wave 8s linear infinite;\n      }\n\n      .wave1 {\n        animation: wave1 10s linear infinite;\n      }\n\n      .wave2 {\n        animation: wave2 12s linear infinite;\n      }\n\n      @keyframes wave {\n        0% {\n          transform: translateX(0%);\n        }\n\n        100% {\n          transform: translateX(100%);\n        }\n      }\n\n      @keyframes wave1 {\n        0% {\n          transform: scaleY(1.2) translateX(0%);\n        }\n\n        100% {\n          transform: scaleY(1.2) translateX(100%);\n        }\n      }\n\n      @keyframes wave2 {\n        0% {\n          transform: scaleY(.8) translateX(0%);\n        }\n\n        100% {\n          transform: scaleY(.8) translateX(100%);\n        }\n      }\n    " }} />
+    <path id="sineWave" fill="gray" fillOpacity="0.3" d="M0,160 C320,300,420,300,740,160 C1060,20,1120,20,1440,160 V0 H0" />
+  </defs>
+  <use className="wave" href="#sineWave" />
+  <use className="wave" x="-100%" href="#sineWave" />
+  <use className="wave1" href="#sineWave" />
+  <use className="wave1" x="-100%" href="#sineWave" />
+  <use className="wave2" href="#sineWave" />
+  <use className="wave2" x="-100%" href="#sineWave" />
+</svg>
+
+
+{/* <div className="waveWrapper waveAnimation">
+  <div className="waveWrapperInner bgTop">
+    <div className="wave waveTop" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-top.png")'}} />
+  </div>
+  <div className="waveWrapperInner bgMiddle">
+    <div className="wave waveMiddle" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-mid.png")'}} />
+  </div>
+  <div className="waveWrapperInner bgBottom">
+    <div className="wave waveBottom" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-bot.png")'}} />
+  </div>
+</div> */}
+        </div>
+      )
+      const Header = ( 
+        <div id='fullWidth'>
+          <div style={{position:"absolute",padding:"2%",paddingTop:"5vh"}}>
             <Row>
-              <Col sm={12}>
-           <div className="h3 pb-2 mb-4  border-bottom border-light"><li>เว็บไซต์อัพเดตสถานะว่างห้องพัก</li></div>
-          <p>
-            เว็บไซต์เช็คสถานะ อาจไม่ใช่สถานะล่าสุด **โปรดติดผู้ดูเเลหอพักเพื่อสอบถามข้อมูล
+              <Col sm={6}>
+              <img src={Header_Logo} className="img-fluid " alt="Logo" style={{height:'14vh',maxWidth:"auto"}}></img>
+              </Col>
+              <Col sm={6} className="w-100">
+              <h1 style={{textShadow:'4px 4px #bfc0c1',borderTopStyle:"solid",borderWidth:"5px",marginTop:"-2px"}}>Wisdom of Mankind</h1>
+              </Col>
+            </Row> 
+          </div>
+          {headerWave}
+        </div>
+      )
+
+      const Descrip_Header = (
+        <div className="py-5" > 
+          <Row>
+          <Col sm={6}>
+            <Row>
+              <Col sm="auto">
+           <div className="h3 pb-2 mb-4  text-danger border-bottom border-danger" >
+            <li>เว็บไซต์ตรวจสอบวิจัยจากผู้เชี่ยวชาญ</li>
+           </div>
+          <p className="fst-italic bg-light text-dark p-3 rounded">
+          การตรวจสอบการวิจัย (Audit) เป็นการประกันคุณภาพโครงการวิจัยยังดำเนินการอยู่หรือเสร็จสิ้นแล้ว เพื่อให้แน่ใจว่า การดำเนินกิจกรรมวิจัยเป็นไปตามหลัก GCP โดยการตรวจสอบกิจกรรมต่างๆ ที่เกี่ยวข้องกับการวิจัย ตลอดจนเอกสารอย่างเป็นระบบ ที่สถาบันหรือผู้ให้ทุนจัดทำเพียง 1 ครั้งต่อ 1 โครงการวิจัย
           </p>
               </Col>
-              <Col sm>
-          <Card className="d-inline-flex w-auto shadow">
+
+              <Col sm={12}>
+          <Card className="d-inline-flex w-auto shadow m-1">
             <Card.Body className="text-dark">
-            <Telephone/> : 088-986-4842/090-658-3157 <br/>
-            <Envelope/> : cosos41@hotmail.com<br/>
-            <Line/> : <LineAccount /><br/>
-            <Facebook/> : หอพักชูชัช
+              <h5>การตรวจสอบการวิจัย (Audit)</h5>
+            <p>
+            ใครเป็นคนมาตรวจสอบ?
+            ผู้ให้ทุนสนับสนุนจัดให้มีการตรวจสอบโครงการวิจัยโดยการจ้าง ผู้ตรวจสอบ (Auditor) ที่เป็นบุคคลอิสระไม่เกี่ยวข้องกับการวิจัย มีคุณสมบัติเหมาะสมโดยผ่านการอบรมและมีประสบการณ์ที่จะปฏิบัติงานการตรวจสอบการวิจัยอย่างถูกต้อง มีเอกสารบันทึกคุณสมบัติของผู้ตรวจสอบการวิจัยเป็นหลักฐาน
+            </p>
             </Card.Body>
           </Card>
             </Col>
+
+            <Col sm={12}>
+          <Card className="d-inline-flex w-auto shadow m-1">
+            <Card.Body className="text-dark">
+              
+              <h5><ExclamationCircleFill/> วิธีดำเนินการตรวจสอบการวิจัย?</h5>
+            <p> 
+            ใครเป็นคนมาตรวจสอบ?
+            ในการตรวจสอบจะมีแผนการและวิธีดำเนินในการตรวจสอบโครงการวิจัยอย่างเป็นลายลักษณ์อักษรจากผู้ให้ทุนว่า จะตรวจสอบอะไร ตรวจสอบอย่างไร ตรวจสอบบ่อยแค่ไหน รูปแบบ รวมทั้งเนื้อหาของรายงานการตรวจสอบเป็นอย่างไร โดยกำหนดตามความสำคัญของการวิจัยจาก จำนวนอาสาสมัครที่เข้าร่วมการวิจัย, ประเภทและความซับซ้อนของการวิจัย, ระดับความเสี่ยงที่จะมีต่ออาสาสมัครในการวิจัย, และปัญหาต่างๆที่เกิดขึ้น
+            </p>
+            </Card.Body>
+          </Card>
+            </Col>
+
             </Row>
           </Col>
+          <Col sm={6}>
+            <Col sm={12} className="h-100">
+            <Card className="shadow m-1" style={{height:"100%"}}>
+            <Card.Body className="text-dark">
+              
+              <h5><ExclamationCircleFill/> Test1</h5>
+            <p> 
+            ใครเป็นคนมาตรวจสอบ?
+            ในการตรวจสอบจะมีแผนการและวิธีดำเนินในการตรวจสอบโครงการวิจัยอย่างเป็นลายลักษณ์อักษรจากผู้ให้ทุนว่า จะตรวจสอบอะไร ตรวจสอบอย่างไร ตรวจสอบบ่อยแค่ไหน รูปแบบ รวมทั้งเนื้อหาของรายงานการตรวจสอบเป็นอย่างไร โดยกำหนดตามความสำคัญของการวิจัยจาก จำนวนอาสาสมัครที่เข้าร่วมการวิจัย, ประเภทและความซับซ้อนของการวิจัย, ระดับความเสี่ยงที่จะมีต่ออาสาสมัครในการวิจัย, และปัญหาต่างๆที่เกิดขึ้น
+            </p>
+            </Card.Body>
+          </Card>
+            </Col>
+          </Col>
+
           </Row>
         </div>
       )
       
-      
         return (
             <div className="home">
               <Container className="bg-light border">
+              <section>
+                {Header}
+              </section>
             {/* <header className="footer">
                <Header></Header>
             </header>   */}
+              
+
               <section>
              <div className="row">
               {Descrip_Header}
