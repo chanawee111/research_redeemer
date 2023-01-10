@@ -15,7 +15,7 @@ const Sidebar = (props) => {
 
       <Link to='empty_rooms' className='d-grid gap-2 text-decoration-none'>
         <Button variant="success border" size="lg" style={{fontSize:"15px"}}>
-      ห้องที่ว่าง
+      ผู้ใช้ทั้งหมด
       </Button>
       </Link>
 

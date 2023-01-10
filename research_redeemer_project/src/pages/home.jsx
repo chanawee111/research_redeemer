@@ -11,11 +11,12 @@ import Container from 'react-bootstrap/Container'
 import {Col,Row,Card} from 'react-bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import { ExclamationCircleFill,Facebook} from 'react-bootstrap-icons';
+
 import {Header,Contents,Sidebar,Footer} from '../layouts/public/Exporter';
 import Header_Logo from '../assets/owl-wisdom.png'
 import QRLine from '../assets/QRLine.png';
-import { ExclamationCircleFill,Facebook} from 'react-bootstrap-icons';
-
+import TestAxios from '../components/__test__/testAxios'
 
 
 class Home extends React.Component {
@@ -44,11 +45,10 @@ class Home extends React.Component {
       );
 
       const headerWave = (
-        <div style={{position:"relation"}}>
+        <div style={{position:"relation",height:"16vh"}}>
           <svg viewBox="0 0 1440 320">
   <defs>
-    <style type="text/css" dangerouslySetInnerHTML={{__html: "\n      .wave {\n        animation: wave 8s linear infinite;\n      }\n\n      .wave1 {\n        animation: wave1 10s linear infinite;\n      }\n\n      .wave2 {\n        animation: wave2 12s linear infinite;\n      }\n\n      @keyframes wave {\n        0% {\n          transform: translateX(0%);\n        }\n\n        100% {\n          transform: translateX(100%);\n        }\n      }\n\n      @keyframes wave1 {\n        0% {\n          transform: scaleY(1.2) translateX(0%);\n        }\n\n        100% {\n          transform: scaleY(1.2) translateX(100%);\n        }\n      }\n\n      @keyframes wave2 {\n        0% {\n          transform: scaleY(.8) translateX(0%);\n        }\n\n        100% {\n          transform: scaleY(.8) translateX(100%);\n        }\n      }\n    " }} />
-    <path id="sineWave" fill="gray" fillOpacity="0.3" d="M0,160 C320,300,420,300,740,160 C1060,20,1120,20,1440,160 V0 H0" />
+  <path id="sineWave" fill="gray" fillOpacity="0.3" d="M0,160 C320,300,420,300,740,160 C1060,20,1120,20,1440,160 V0 H0" />
   </defs>
   <use className="wave" href="#sineWave" />
   <use className="wave" x="-100%" href="#sineWave" />
@@ -58,23 +58,11 @@ class Home extends React.Component {
   <use className="wave2" x="-100%" href="#sineWave" />
 </svg>
 
-
-{/* <div className="waveWrapper waveAnimation">
-  <div className="waveWrapperInner bgTop">
-    <div className="wave waveTop" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-top.png")'}} />
-  </div>
-  <div className="waveWrapperInner bgMiddle">
-    <div className="wave waveMiddle" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-mid.png")'}} />
-  </div>
-  <div className="waveWrapperInner bgBottom">
-    <div className="wave waveBottom" style={{backgroundImage: 'url("http://front-end-noobs.com/jecko/img/wave-bot.png")'}} />
-  </div>
-</div> */}
         </div>
       )
       const Header = ( 
         <div id='fullWidth'>
-          <div style={{position:"absolute",padding:"2%",paddingTop:"5vh"}}>
+          <div style={{position:"absolute",padding:"2%",paddingTop:"6vh"}}>
             <Row>
               <Col sm={6}>
               <img src={Header_Logo} className="img-fluid " alt="Logo" style={{height:'14vh',maxWidth:"auto"}}></img>
@@ -115,7 +103,7 @@ class Home extends React.Component {
             </Col>
 
             <Col sm={12}>
-          <Card className="d-inline-flex w-auto shadow m-1">
+          <Card className="d-inline-flex w-auto shadow m-1 h-100">
             <Card.Body className="text-dark">
               
               <h5><ExclamationCircleFill/> วิธีดำเนินการตรวจสอบการวิจัย?</h5>
@@ -132,13 +120,9 @@ class Home extends React.Component {
           <Col sm={6}>
             <Col sm={12} className="h-100">
             <Card className="shadow m-1" style={{height:"100%"}}>
+              <Card.Header>ข้อบัญญัติ</Card.Header>
             <Card.Body className="text-dark">
-              
-              <h5><ExclamationCircleFill/> Test1</h5>
-            <p> 
-            ใครเป็นคนมาตรวจสอบ?
-            ในการตรวจสอบจะมีแผนการและวิธีดำเนินในการตรวจสอบโครงการวิจัยอย่างเป็นลายลักษณ์อักษรจากผู้ให้ทุนว่า จะตรวจสอบอะไร ตรวจสอบอย่างไร ตรวจสอบบ่อยแค่ไหน รูปแบบ รวมทั้งเนื้อหาของรายงานการตรวจสอบเป็นอย่างไร โดยกำหนดตามความสำคัญของการวิจัยจาก จำนวนอาสาสมัครที่เข้าร่วมการวิจัย, ประเภทและความซับซ้อนของการวิจัย, ระดับความเสี่ยงที่จะมีต่ออาสาสมัครในการวิจัย, และปัญหาต่างๆที่เกิดขึ้น
-            </p>
+            <TestAxios/>
             </Card.Body>
           </Card>
             </Col>

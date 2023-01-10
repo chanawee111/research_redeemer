@@ -4,8 +4,6 @@ import Table from 'react-bootstrap/Table';
 
 const Tables =(props) => {
   const valueFromStore = props.stateFromStore
-  //console.log("Tavle stateFromStore:",stateFromStore.id)
-  console.log("Table valueFromStore Data:",valueFromStore)
     return (
         <div style={{margin: '5px'}}>
             <Table striped bordered hover className="bg-light">

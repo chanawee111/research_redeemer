@@ -1,15 +1,10 @@
 const initialState ={
-    rooms : [
-        {id: 1 ,name : 'Chanawee',status : true},
-        {id: 2 ,name : 'Yowsd',status : false},
-        {id: 3 ,name : 'Towor',status : true},
-        {id: 4 ,name : 'Wfgbvc',status : true},
-        {id: 5 ,name : 'Chanon',status : false},
-        {id: 6 ,name : 'Fower',status :true}
-      ]
+    users : [],
+      isLoading : false
 }
+
 const reducer =(state = initialState,action)=>{
-    const allRooms = [...state.rooms]
+    const allUsers = [...state.users]
     switch(action.type){
         // case 'GET_ROOM':
         //     console.log('ID Payload:',action.payload)
@@ -18,38 +13,93 @@ const reducer =(state = initialState,action)=>{
         //     })
         //     console.log("index in Reducer",indexForCalling)
         //     return indexForCalling
-        case 'DEL_ROOM':
-            console.log('Del Function ACTIVATED DELETE :',action.payload)
+        // case 'DEL_ROOM':
+        //     console.log('Del Function ACTIVATED DELETE :',action.payload)
+        //     const newState = {
+        //         ...state,
+        //         rooms: state.rooms.filter(item => item.id !== action.payload)
+        //    }
+        //    return newState;
+
+        // case 'ADD_ROOM':
+        //     const addedState={
+        //         ...state,
+        //         rooms: [...state.rooms,action.payload]
+        //    }
+        //    return addedState;
+
+        // case 'EDIT_ROOM':
+        //     console.log('STEP1 -- EDIT_ROOM Function ACTIVATED :',action.payload)
+        //     console.log('STEP1.1 -- EDIT_ROOM Function ACTIVATED :',action.payload)
+        //     const indexForEdit = allRooms.findIndex((item) => {
+        //         return item.id === action.payload.id
+        //     })
+        //     console.log('STEP2 -- EDIT_ROOM Function ACTIVATED :',indexForEdit ,'payload ID:',action.payload.id)
+        //     allRooms[indexForEdit] ={
+        //         id:action.payload.id,
+        //         name: action.payload.name,
+        //         status: action.payload.status
+        //     }
+        //     const editedState = {
+        //         ... state,
+        //         rooms : allRooms
+        //     }
+        //     return editedState
+        case 'GET_USER_LISTS': //It Work
+            console.log('GET USER LIST REDUCER WORKDED')
+            const allUsersState = {
+                ...state,
+                users: action.payload
+            }
+            return allUsersState;
+        case 'DEL_USER':
             const newState = {
                 ...state,
-                rooms: state.rooms.filter(item => item.id !== action.payload)
-           }
-           return newState;
-
-        case 'ADD_ROOM':
-            const addedState={
+                users: state.users.filter(item => item.id !== action.payload)
+            }
+            return newState;
+        case 'ADD_USER':
+            const addedState = {
                 ...state,
-                rooms: [...state.rooms,action.payload]
-           }
-           return addedState;
+                users : [action.payload], ...state.users
+            }
+            return addedState;
+        case 'EDIT_USER':
+            const indexForEdit = allUsers.findIndex(item => item.id === action.payload.id);
+            console.log(`index ${indexForEdit} for edit`);
 
-        case 'EDIT_ROOM':
-            console.log('STEP1 -- EDIT_ROOM Function ACTIVATED :',action.payload)
-            console.log('STEP1.1 -- EDIT_ROOM Function ACTIVATED :',action.payload)
-            const indexForEdit = allRooms.findIndex((item) => {
-                return item.id === action.payload.id
-            })
-            console.log('STEP2 -- EDIT_ROOM Function ACTIVATED :',indexForEdit ,'payload ID:',action.payload.id)
-            allRooms[indexForEdit] ={
-                id:action.payload.id,
+            allUsers[indexForEdit] = {
+                id: action.payload.id,
                 name: action.payload.name,
-                status: action.payload.status
+                email: action.payload.email
             }
+
             const editedState = {
-                ... state,
-                rooms : allRooms
+                ...state,
+                users: allUsers
             }
-            return editedState
+
+            return editedState;
+        case 'GET_USER':
+            const idUser = action.payload;
+
+            const getUser = {
+                ...state,
+                users: action.payload
+            }
+            return getUser;
+
+        case 'LOADING_START':
+            return {
+                ...state,
+                isLosding : true
+            }
+        case 'LOADING_END':
+            return{
+                ...state,
+                isLosding : false
+            }
+        
         default:
             break;
     }

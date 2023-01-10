@@ -1,9 +1,5 @@
 import React,{useState} from 'react';
-import {Row,Col} from 'react-bootstrap'
 import {Outlet} from 'react-router-dom';
-import Room from '../../components/Home/Room'
-import Tables from '../../components/Home/tables'
-import RoomLayout from '../../components/Home/LayoutRoom'
 
 const Contents =(props)=>{
  const [dataState,setDataState] = useState(
@@ -23,11 +19,6 @@ const Contents =(props)=>{
   )
     return (
         <div> 
-          
-            <p className="fw-bold m-1">ตารางเเสดงสถานะ</p>
-            <RoomLayout/>
-            <Tables></Tables>
-            <hr></hr>
             <Outlet/>
         </div>
     )
