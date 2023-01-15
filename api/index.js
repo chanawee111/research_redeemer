@@ -1,4 +1,3 @@
-const { application } = require('express');
 const express = require('express'); //import express initial for create Middleware
 const app = express(); // 
 const {v4:uuid} = require('uuid');
@@ -13,24 +12,24 @@ app.use((req, res, next) => {
     res.setHeader(
         "Access-Control-Allow-Methods",
         "GET,POST,PUT,DELETE"
-    )
+    );
     next();
 })
 
 let users = [
-    {'id':'1','name':'Panita','email':'Panita_12@gmail.com'},
-    {'id':'2','name':'Chatpol','email':'Chatpol_12@gmail.com'},
-    {'id':'3','name':'Chalathip','email':'Chalathip_12@gmail.com'},
-    {'id':'4','name':'Kongkiat','email':'Kongkiat_12@gmail.com'},
-    {'id':'5','name':'Chanitra','email':'Chanitra_12@gmail.com'},
-    {'id':'6','name':'Nitradee','email':'Nitradee_12@gmail.com'},
-    {'id':'7','name':'Wimonrat','email':'Wimonrat_12@gmail.com'},
-    {'id':'8','name':'Tanisorn','email':'Tanisorn_12@gmail.com'},
-    {'id':'9','name':'Nonnatin','email':'Nonnatin_12@gmail.com'},
-    {'id':'10','name':'Sira','email':'Sira_12@gmail.com'}
+    {'id':uuid(),'name':'Panita','email':'Panita_12@gmail.com'},
+    {'id':uuid(),'name':'Chatpol','email':'Chatpol_12@gmail.com'},
+    {'id':uuid(),'name':'Chalathip','email':'Chalathip_12@gmail.com'},
+    {'id':uuid(),'name':'Kongkiat','email':'Kongkiat_12@gmail.com'},
+    {'id':uuid(),'name':'Chanitra','email':'Chanitra_12@gmail.com'},
+    {'id':uuid(),'name':'Nitradee','email':'Nitradee_12@gmail.com'},
+    {'id':uuid(),'name':'Wimonrat','email':'Wimonrat_12@gmail.com'},
+    {'id':uuid(),'name':'Tanisorn','email':'Tanisorn_12@gmail.com'},
+    {'id':uuid(),'name':'Nonnatin','email':'Nonnatin_12@gmail.com'},
+    {'id':uuid(),'name':'Sira','email':'Sira_12@gmail.com'}
 ];
 
-app.get('/api/users',(req,res) =>{
+app.get('/api/users',(req,res) =>{ //It Work
     if(users.length >= 0){
         res.status(200).send(users);
     }else {
@@ -53,7 +52,7 @@ app.get('/api/user/:id',(req,res) =>{
     }
 });
 
-app.post('/api/user',(req,res)=>{
+app.post('/api/user/',(req,res)=>{
     const userName = req.body.name;
     const userEmail = req.body.email;
     if(userName.length <= 0){
@@ -69,12 +68,13 @@ app.post('/api/user',(req,res)=>{
     }
 });
 
-app.delete('/api/user/:id',(req,res)=>{
+app.delete('/api/users/:id',(req,res)=>{ //It Work
     const id = req.params.id;
     const user = users.find(item => item.id === id);
     if(user){
         const index = users.indexOf(user);
         users.slice(index,1);
+        res.send(user);
     }else {
         res.status(400).send(`Error : cannot delete user id:${id}!`);
     }

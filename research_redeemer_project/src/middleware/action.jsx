@@ -19,22 +19,22 @@ export const getUserLists = () => { //It Work
     }
 }
 
-export const delUser = (id) =>{
+export const delUser = (id) =>{ //It Work
     return async (dispatch) => {
-        try{
+        try{            
             dispatch({type:"LOADING_START"});
             const res = await axios.delete(`http://${host}:${port}/api/users/${id}`);
             dispatch({type:"DEL_USER",payload: res.data.id});
-
+            console.log('delUser ACTIVATED HTTP:',res)
         }catch(err){
-            console.log("Delete User fail",err);
+            console.log("Delete User fail",err,`http://${host}:${port}/api/users/${id}`);
         }finally{
             dispatch({type:"LOADING_END"});
         }
     }
 }
 
-export const addUser = (data) => {
+export const addUser = (data) => { //It Work
     return async (dispatch) => {
         try{
             dispatch({type:"LOADING_START"});
@@ -78,8 +78,3 @@ export const getUser = (id) => {
     }
 }
 
-export  const TestExport = () => {
-  
-            console.log('f')
-    
-}

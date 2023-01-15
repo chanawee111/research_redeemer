@@ -4,8 +4,8 @@ import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 
 import * as actions from '../../../middleware/action';
-import EditUser from './editUser';
-import DeleteUser from './deleteUser';
+import UserLists from './userLists';
+import AddUser from './addUser';
 
 class EmptyRoom extends React.Component {
     componentDidMount() {
@@ -15,31 +15,22 @@ class EmptyRoom extends React.Component {
         const{stateFromStore,loading} = this.props
         console.log(stateFromStore,loading)
         console.log("Check Load content",stateFromStore >0)
-        let lists = (
-            <div>
-                <h1>No Data</h1>
-            </div>
-        )
+        let lists = null
 
         if(stateFromStore.length > 0) {
-            lists = stateFromStore.map(item => (
- 
-                <tr>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{<EditUser></EditUser>} {<DeleteUser></DeleteUser>}</td>
-                </tr>
+            lists = stateFromStore.map((item,index) => (  
+
+                <UserLists key={index} data={item} userIndex={index+1}/>
                     ))
         }
 
 
         if(loading === true) {
-            lists = <div>
+            lists =
                  <Spinner animation="border" role="status">
                      <span className="visually-hidden">Loading...</span>
                  </Spinner>
-            </div>
+           
         }
         return (
             <div>
@@ -47,22 +38,26 @@ class EmptyRoom extends React.Component {
                 <Table bordered hover responsive>
       <thead>
         <tr>
-          <th>#</th>
+            <th>#</th>
+          <th>ID</th>
           <th>Name</th>
           <th>Email</th>
-          <th ></th>
+          <th className="w-25"></th>
         </tr>
+
       </thead>
       <tbody>
       {lists}
-      </tbody>
-  
       <tr>
         <th>Total</th>
-        <td>{this.props.stateFromStore.length} user</td>
+        <td colSpan={4}>{this.props.stateFromStore.length} user</td>
       </tr>
+      </tbody>
+  
+     
     
-    </Table>
+    </Table> 
+    <AddUser/>
             </div>
         );
     }

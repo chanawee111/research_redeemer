@@ -90,11 +90,13 @@ const reducer =(state = initialState,action)=>{
             return getUser;
 
         case 'LOADING_START':
+            console.log('LOADING START ACTIVATED')
             return {
                 ...state,
                 isLosding : true
             }
         case 'LOADING_END':
+            console.log('LOADING END ACTIVATED')
             return{
                 ...state,
                 isLosding : false
