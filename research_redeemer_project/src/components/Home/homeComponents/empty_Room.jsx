@@ -15,7 +15,13 @@ class EmptyRoom extends React.Component {
         const{stateFromStore,loading} = this.props
         console.log(stateFromStore,loading)
         console.log("Check Load content",stateFromStore >0)
-        let lists = null
+        let lists = (<tr>
+            <td>No Data</td>
+            <td>No Data</td>
+            <td>No Data</td>
+            <td>No Data</td>
+        </tr>);
+        let loadingComponent = null;
 
         if(stateFromStore.length > 0) {
             lists = stateFromStore.map((item,index) => (  
@@ -24,18 +30,18 @@ class EmptyRoom extends React.Component {
                     ))
         }
 
-
         if(loading === true) {
-            lists =
+            loadingComponent = <div>
                  <Spinner animation="border" role="status">
                      <span className="visually-hidden">Loading...</span>
-                 </Spinner>
-           
+                 </Spinner>     
+                 </div>   
         }
+
         return (
             <div>
                 <h1>User Lists</h1>
-                <Table bordered hover responsive>
+                <Table striped hover>
       <thead>
         <tr>
             <th>#</th>
@@ -52,11 +58,9 @@ class EmptyRoom extends React.Component {
         <th>Total</th>
         <td colSpan={4}>{this.props.stateFromStore.length} user</td>
       </tr>
-      </tbody>
-  
-     
-    
+      </tbody>   
     </Table> 
+        {loadingComponent}
     <AddUser/>
             </div>
         );

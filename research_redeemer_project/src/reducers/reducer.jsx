@@ -1,6 +1,8 @@
 const initialState ={
     users : [],
-      isLoading : false
+    isLoading : false,
+    error : {status:false,message:''},
+    axiosError : {}
 }
 
 const reducer =(state = initialState,action)=>{
@@ -80,28 +82,40 @@ const reducer =(state = initialState,action)=>{
             }
 
             return editedState;
-        case 'GET_USER':
-            const idUser = action.payload;
 
-            const getUser = {
+        case 'GET_USER':
+            console.log('GET_USER Payload:',action.payload ,'Type of :',typeof(action.payload))
+            const newGetUser = {
                 ...state,
                 users: action.payload
             }
-            return getUser;
-
+            return newGetUser;
+            
         case 'LOADING_START':
-            console.log('LOADING START ACTIVATED')
+            console.log('LOADING START ACTIVATED');
             return {
                 ...state,
-                isLosding : true
+                isLoading : true
             }
         case 'LOADING_END':
-            console.log('LOADING END ACTIVATED')
+            console.log('LOADING END ACTIVATED');
             return{
                 ...state,
-                isLosding : false
+                isLoading : false
             }
-        
+        case 'REASON_ERROR':
+            console.log('READSON_ERROR ACTIVATED');
+            return {
+                ...state,
+                error : action.payload
+            }  
+        case 'AXIOS_ERROR':
+            console.log('AXIOS_ERROR ACTIVATED');
+            return {
+                ...state,
+                axiosError : action.payload
+            }
+
         default:
             break;
     }

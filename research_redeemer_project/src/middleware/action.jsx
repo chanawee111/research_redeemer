@@ -54,7 +54,6 @@ export const editUser = (data) => {
             dispatch({type:"LOADING_START"});
             const res = await axios.put(`http://${host}:${port}/api/user/${data.id}`,data)
             dispatch({type:"EDIT_USER",payload:res.data})
-
         }catch(err){
             console.log("Edit user Fail",err);
         }finally {
@@ -66,12 +65,16 @@ export const editUser = (data) => {
 export const getUser = (id) => {
     return async (dispatch) => {
         try{
+            console.log("getUser ACTIVATED")
             dispatch({type:"LOADING_START"});
-            await axios.get(`http://${host}:${port}/api/user/${id}`);
-            dispatch({type:"GET_USER",payload:id});
-
+            const res = await axios.get(`http://${host}:${port}/api/user/${id}`).catch((error) => {
+                dispatch({type:"AXIOS_ERROR",payload: error.message});
+            });;
+            dispatch({type:"GET_USER",payload:res.data});
         }catch(err){
             console.log('Get user fail',err);
+            dispatch({type:"REASON_ERROR",payload: {status:true,message:"DATA NOT FOUND"}})
+            
         }finally{
             dispatch({type:"LOADING_END"});
         }

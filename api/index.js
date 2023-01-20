@@ -46,7 +46,7 @@ app.get('/api/user/:id',(req,res) =>{
         userIndex : index
     }
     if(user){
-        res.status(200).send(userAndIndex);
+        res.status(200).send([userAndIndex]);
     }else {
         res.status(400).send(`NOT FOUND USER FOR ID ${id}`)
     }
@@ -100,5 +100,6 @@ app.put('api/user/:id',(req,res)=>{
 
 const port = process.env.port || 3000;
 app.listen(port,()=>{
-    console.log(`Listening on port`,port)
+    console.log(`Listening on port`,port);
+    console.log(users);
 })

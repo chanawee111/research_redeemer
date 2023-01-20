@@ -11,7 +11,7 @@ import NavBar from "./components/Navbar/Navbar";
 import Home from './pages/home';
 import Login_Page from './pages/login_page';
 import Register_Page from './pages/register_page';
-import Edit_Room from './pages/__test__/displayRoom'
+import Edit_User from './pages/__test__/editUserPage'
 import Error404 from './pages/error404';
 
 import EmptyRooms from './components/Home/homeComponents/empty_Room';
@@ -30,7 +30,7 @@ class App extends React.Component {
               <Route path="empty_rooms" element={<EmptyRooms />}/>
               <Route path="nonempty_rooms" element={<NonEmptyRooms/>}/>
             </Route>
-            <Route path="edit/:id" element={<Edit_Room/>}/>
+            <Route path="edit/:id" element={<Edit_User/>}/>
             <Route path="*" element={<Error404/>}/>
           </Route>
           <Route element={<WithoutNav/>}>
