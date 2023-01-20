@@ -5,6 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import {Button,Container,Card} from 'react-bootstrap';
 
 import withRouter from '../../components/__test__/withRouter';
+import EditUserFunction from '../../components/__test__/editUserFunction'
 
 //import EditUserFunction from '../../components/__test__/editUserFunction'
 
@@ -110,7 +111,7 @@ class EditUser extends React.Component {
         let errorHTML = null;
 
         const userData = this.props.StateFromStore.users[0];
-        console.log("----------------StateFromStore:",this.props.StateFromStore.error.status)
+        //console.log("----------------StateFromStore:",this.props.StateFromStore.error.status)
 
         if(userData === undefined) {
             console.log("userData undefined");
@@ -118,18 +119,7 @@ class EditUser extends React.Component {
             console.log("userData not undefined Data payload:",userData);
             const dataPayload = userData
             editDataHTML = (<div>
-                {/* <h1>User Infomation</h1>
-                <p>
-                    {dataPayload.id}<br/>
-                    {dataPayload.name}<br/>
-                    {dataPayload.email}<br/>
-                </p> */}
-                <Card className='d-inline-flex'>
-                    <Card.Header>EditUser ID: {this.state.id}</Card.Header>
-                    <Card.Body>
-                    {JSON.stringify(dataPayload)}
-                    </Card.Body>
-                </Card>
+                <EditUserFunction userData={userData} />
             </div>)
             console.log("Data Payload :",dataPayload);
         }
@@ -155,6 +145,7 @@ class EditUser extends React.Component {
                  {editDataHTML}
                  {loadingHTML}
                  {errorHTML}
+                 
                  </Container>
             </div>
          );

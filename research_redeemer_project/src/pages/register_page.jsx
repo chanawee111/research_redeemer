@@ -168,7 +168,7 @@ const Register = () => {
   }
     return ( 
       
-        <div className="registerPage ">
+        <div className="registerPage">
         <Row className="justify-content-md-center">
 
            
