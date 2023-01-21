@@ -37,6 +37,7 @@ class EmptyRoom extends React.Component {
                  </Spinner>     
                  </div>   
         }
+        
 
         return (
             <div>

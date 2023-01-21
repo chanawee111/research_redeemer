@@ -2,10 +2,86 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../middleware/action'
 import Spinner from 'react-bootstrap/Spinner';
-import {Button,Container,Card} from 'react-bootstrap';
+import {Container,Row,Col} from 'react-bootstrap';
 
 import withRouter from '../../components/__test__/withRouter';
 import EditUserFunction from '../../components/__test__/editUserFunction'
+
+class EditUser extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            id: this.props.params.id,
+            name: '',
+            email: ''
+        }
+    }
+    componentDidMount() {
+        this.props.getUserFromStore(this.state.id)
+    }
+
+    render() {
+        let editDataHTML = null;
+        let loadingHTML = null;
+        let errorHTML = null;
+
+        const userData = this.props.StateFromStore.users[0];
+        //console.log("----------------StateFromStore:",this.props.StateFromStore.error.status)
+
+        if(userData === undefined) {
+            console.log("userData undefined");
+        }else{
+            console.log("userData is not undefined Data payload:",userData);
+            const dataPayload = userData
+            editDataHTML = (<div>
+                <EditUserFunction userData={userData} editFn={this.props.editUserDataAtStore.bind(this)} />
+            </div>)
+            console.log("Data Payload :",dataPayload);
+        }
+        if(this.props.StateFromStore.isLoading === true){
+            loadingHTML = (<div>
+                 <Spinner animation="grow" />  loading...
+                
+            </div>)
+        }
+        if(this.props.StateFromStore.error.status === true){
+            editDataHTML = (<div>
+                Error Reason :
+                {this.props.StateFromStore.error.message} 
+                {console.log("!!!!!!!!!Error AXIOS ERROR,", this.props.StateFromStore.axiosError)}<br/>
+                {JSON.stringify(this.props.StateFromStore.axiosError)}
+            </div>)
+        }
+
+
+        return ( 
+            <div style={{paddingTop:'9vh',height:'100vh'}} className="bg-white">
+                 <Row className="justify-content-md-center">
+                <Col sm md xs lg="auto">
+                 <Container>
+                 {editDataHTML}
+                 {loadingHTML}
+                 </Container>
+                 </Col>
+                 </Row>
+            </div>
+         );
+    }
+}
+const mapStateToProps=(state)=>{
+    return{
+        StateFromStore : state
+    }
+}
+
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        getUserFromStore: (id) => {return dispatch(actions.getUser(id))},
+        editUserDataAtStore: (data) => {return dispatch(actions.editUser(data))}
+    }
+}
+ 
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(EditUser));
 
 //import EditUserFunction from '../../components/__test__/editUserFunction'
 
@@ -89,78 +165,3 @@ import EditUserFunction from '../../components/__test__/editUserFunction'
 // }
 
 // export default connect(mapStateToProps,mapDispatchToProps)(EditUser);
-
-class EditUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            id: this.props.params.id,
-            name: '',
-            email: ''
-        }
-    }
-    componentDidMount() {
-        this.props.getUserFromStore(this.state.id)
-    }
-
-    render() {
-        let editDataHTML = (<div>
-            <h1>No Data</h1>
-        </div>)
-        let loadingHTML = null;
-        let errorHTML = null;
-
-        const userData = this.props.StateFromStore.users[0];
-        //console.log("----------------StateFromStore:",this.props.StateFromStore.error.status)
-
-        if(userData === undefined) {
-            console.log("userData undefined");
-        }else{
-            console.log("userData not undefined Data payload:",userData);
-            const dataPayload = userData
-            editDataHTML = (<div>
-                <EditUserFunction userData={userData} />
-            </div>)
-            console.log("Data Payload :",dataPayload);
-        }
-        if(this.props.StateFromStore.isLoading === true){
-            loadingHTML = (<div>
-                 <Spinner animation="grow" />  loading...
-                
-            </div>)
-        }
-        if(this.props.StateFromStore.error.status === true){
-            errorHTML = (<div>
-                Error Reason :
-                {this.props.StateFromStore.error.message} 
-                {console.log("!!!!!!!!!Error AXIOS ERROR,", this.props.StateFromStore.axiosError)}<br/>
-                {JSON.stringify(this.props.StateFromStore.axiosError)}
-            </div>)
-        }
-
-
-        return ( 
-            <div style={{paddingTop:'9vh',height:'100vh'}} className="bg-white">
-                 <Container>
-                 {editDataHTML}
-                 {loadingHTML}
-                 {errorHTML}
-                 
-                 </Container>
-            </div>
-         );
-    }
-}
-const mapStateToProps=(state)=>{
-    return{
-        StateFromStore : state
-    }
-}
-
-const mapDispatchToProps=(dispatch)=>{
-    return {
-        getUserFromStore: (id) => {return dispatch(actions.getUser(id))}
-    }
-}
- 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(EditUser));

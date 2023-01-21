@@ -53,7 +53,7 @@ export const editUser = (data) => {
         try{
             dispatch({type:"LOADING_START"});
             const res = await axios.put(`http://${host}:${port}/api/user/${data.id}`,data)
-            dispatch({type:"EDIT_USER",payload:res.data})
+            dispatch({type:"EDIT_USER",payload:res.data});
         }catch(err){
             console.log("Edit user Fail",err);
         }finally {
