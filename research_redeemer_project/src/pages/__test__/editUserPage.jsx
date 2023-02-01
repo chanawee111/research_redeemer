@@ -34,7 +34,7 @@ class EditUser extends React.Component {
             console.log("userData is not undefined Data payload:",userData);
             const dataPayload = userData
             editDataHTML = (<div>
-                <EditUserFunction userData={userData} editFn={this.props.editUserDataAtStore.bind(this)} />
+                <EditUserFunction userData={userData} />
             </div>)
             console.log("Data Payload :",dataPayload);
         }
@@ -76,8 +76,7 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-        getUserFromStore: (id) => {return dispatch(actions.getUser(id))},
-        editUserDataAtStore: (data) => {return dispatch(actions.editUser(data))}
+        getUserFromStore: (id) => {return dispatch(actions.getUser(id))}
     }
 }
  

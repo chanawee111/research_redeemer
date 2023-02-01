@@ -38,7 +38,7 @@ export const addUser = (data) => { //It Work
     return async (dispatch) => {
         try{
             dispatch({type:"LOADING_START"});
-            const res = await axios.post(`http://${host}:${port}/api/user/`,data);
+            const res = await axios.post(`http://${host}:${port}/api/users/`,data);
             dispatch({type:"ADD_USER",payload: res.data});
         }catch(err) {
             console.log("Add User fail",err);
@@ -50,9 +50,13 @@ export const addUser = (data) => { //It Work
 
 export const editUser = (data) => {
     return async (dispatch) => {
-        try{
+        console.log("--------------editUser Data :",`http://${host}:${port}/api/users/${data.id}`,data)
+        try{  
+            console.log("!!!!!!!!!!!!!!!editUser TRY ACTIVATED")
             dispatch({type:"LOADING_START"});
-            const res = await axios.put(`http://${host}:${port}/api/user/${data.id}`,data)
+            const res = await axios.put(`http://${host}:${port}/api/user/${data.id}`,data).catch(err => {
+                console.log("!!!!AXIOS ERROR :",err)
+            })    
             dispatch({type:"EDIT_USER",payload:res.data});
         }catch(err){
             console.log("Edit user Fail",err);
@@ -67,9 +71,9 @@ export const getUser = (id) => {
         try{
             console.log("getUser ACTIVATED")
             dispatch({type:"LOADING_START"});
-            const res = await axios.get(`http://${host}:${port}/api/user/${id}`).catch((error) => {
+            const res = await axios.get(`http://${host}:${port}/api/users/${id}`).catch((error) => {
                 dispatch({type:"AXIOS_ERROR",payload: error.message});
-            });;
+            });
             dispatch({type:"GET_USER",payload:res.data});
         }catch(err){
             console.log('Get user fail',err);

@@ -1,4 +1,6 @@
 import React,{useState} from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../../middleware/action'
 import {Card,Button,Form} from 'react-bootstrap';
 import {Link,useNavigate} from "react-router-dom";
 
@@ -8,9 +10,9 @@ const EditUserFunction = (props) => {
         idEdit: false
     })
     const [userData,setUserData] = useState({
-        id: props.userData.id,
-        name: props.userData.name,
-        email: props.userData.email 
+        id: '',
+        name: '',
+        email: '' 
     })
     const onChangeData = (event) => {
         setUserData({
@@ -20,13 +22,24 @@ const EditUserFunction = (props) => {
     }
     const onSubmitUserForm = (data,event) => {
         event.preventDefault();
-        const newData = {
-            id: data.id,
-            name: data.name,
-            email: data.email
+        let newData = {}
+        const checkPreviosDuplicate = data.name === props.userData.name && data.email === props.userData.email;
+        const checkEmpty = data.name === "" && data.email === "" ;
+
+        if(checkPreviosDuplicate){
+            alert("Error Duplicate Values")
+        }else if(checkEmpty){
+            alert("Error Empty Values")     
+        }else {
+            newData = {
+                id: props.userData.id,
+                name: data.name,
+                email: data.email 
+            } 
+            console.log("Send Form--------newDataForm :",newData);   
+            props.editUserDataAtStore(newData); 
         }
-        console.log("--------newDataForm :",newData)
-        props.editFn(newData);
+        //props.editFn(newData);
        // navigate("/empty_rooms");
     }
 
@@ -70,4 +83,11 @@ const EditUserFunction = (props) => {
      );
 }
 
-export default EditUserFunction;
+const mapStateToProps = (dispatch) => {
+    return {
+        editUserDataAtStore: (data) => {return dispatch(actions.editUser(data))}
+    }
+}
+
+
+export default connect(null,mapStateToProps)(EditUserFunction);

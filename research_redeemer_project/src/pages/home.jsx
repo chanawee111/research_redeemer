@@ -127,11 +127,9 @@ class Home extends React.Component {
           </Card>
             </Col>
           </Col>
-
           </Row>
         </div>
       )
-      
         return (
             <div className="home">
               <Container className="bg-light border">
@@ -141,8 +139,6 @@ class Home extends React.Component {
             {/* <header className="footer">
                <Header></Header>
             </header>   */}
-              
-
               <section>
              <div className="row">
               {Descrip_Header}
@@ -150,6 +146,7 @@ class Home extends React.Component {
             </section>
 
             <section>
+
             <div className="wrapper d-flex flex-column border-top border-left" style={{minHeight: 'calc(100vh - 24px)'}}>
               <section className="main d-flex flex-grow-1">
                 <div className="container-fluid">

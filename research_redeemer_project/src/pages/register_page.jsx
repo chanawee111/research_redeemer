@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
-import swal from 'sweetalert';
-import {Card,Row,Col} from 'react-bootstrap'
+import Swal from 'sweetalert2';
+import { useHistory } from 
+import {Card,Row,Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import '../styles/register_style.css'
+import '../styles/register_style.css';
 
 
 const Register = () => {
@@ -146,22 +147,35 @@ const Register = () => {
     return DataState.formElement[name].error.message;
   }
 
-  function onFormSubmit(event){
+  async function onFormSubmit(event){
     event.preventDefault();
     if(DataState.formValid === true){
       const formData = {};
     for(let name in DataState.formElement){
       formData[name] = DataState.formElement[name].value;
     }
-    swal("Alert!!","Success",{
-      icon: "success"
+    Swal.fire({
+      title: 'Successfully!',
+      text: 'You Shall Pass Data:',
+      html: `FormValid:${DataState.formValid} `+`Data:`+JSON.stringify(formData),
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    }).then(() => {
+      Swal.fire({
+        title:"Back to Home page",
+        icon: 'warning'
+      })
     });
+
     console.log('FormValid:',DataState.formValid,'!!!!Send Data:',formData);
     }
     if(DataState.formValid === false){
-      swal("Alert!!","Error",{
-        icon:'error'
-      });
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
       console.log('ผิดพลาดข้อมูลไม่ครบถ้วนหรือข้อมูลไม่ถูกต้อง')
     }
     
