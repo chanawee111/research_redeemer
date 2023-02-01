@@ -1,6 +1,6 @@
 import axios from 'axios';
-const host = "localhost";
-const port ="3000";
+const host = "192.168.1.101";
+const port ="5000";
 
 export const getUserLists = () => { //It Work
     console.log('getUserLists Activated')

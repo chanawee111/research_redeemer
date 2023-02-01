@@ -1,11 +1,13 @@
 import React,{useState} from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useHistory } from 
+import { useNavigate } from "react-router-dom";
 import {Card,Row,Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import '../styles/register_style.css';
+import {host,port} from '../config/apiConfig';
 
 
 const Register = () => {
@@ -45,10 +47,23 @@ const Register = () => {
       },
       touched : false,
       error:{status:true,message:''}
+    },
+    confirmPassword:{
+      type : 'password',
+      value: '',
+      validators:{
+        required:true,
+        emptyValue : true,
+        matching : false,
+        pattern: 'confirmPassword'
+      },
+      touched : false,
+      error:{status:true,message:''}
     }
    },
    formValid: false,
   })
+  const navigate = useNavigate();
 
   function onChange(event) {
     SetDataState({
@@ -85,6 +100,14 @@ const Register = () => {
         message = 'กรอกอีเมล์ไม่ถูกต้อง';
       }
     }
+    if(rule.pattern === 'confirmPassword' && valid){
+      if(rule.emptyValue === false){
+        if(value.trim() !== DataState.formElement.password.value){
+          valid = false;
+          message = 'รหัสผ่านไม่ตรง';
+        }
+      }
+    }
 
     return {status:!valid,message:message}
   }
@@ -100,7 +123,7 @@ const Register = () => {
     }
     return emptyInput;
     }
-
+  
   function onFormChange(event){
     const name = event.target.name;
     const value = event.target.value;
@@ -112,8 +135,6 @@ const Register = () => {
     const checkEmptyObject = checkEmpty(value,updateForm[name].validators.emptyValue);
     const validatorsObject = checkValiator(value,updateForm[name].validators);
     
-    
-
     updateForm[name].error = {
       status: validatorsObject.status,
       message: validatorsObject.message
@@ -149,37 +170,53 @@ const Register = () => {
 
   async function onFormSubmit(event){
     event.preventDefault();
-    if(DataState.formValid === true){
-      const formData = {};
-    for(let name in DataState.formElement){
-      formData[name] = DataState.formElement[name].value;
-    }
-    Swal.fire({
-      title: 'Successfully!',
-      text: 'You Shall Pass Data:',
-      html: `FormValid:${DataState.formValid} `+`Data:`+JSON.stringify(formData),
-      icon: 'success',
-      confirmButtonText: 'Cool'
-    }).then(() => {
-      Swal.fire({
-        title:"Back to Home page",
-        icon: 'warning'
-      })
-    });
+    // if(DataState.formValid === true){
+    //   const formData = {};
+    // for(let name in DataState.formElement){
+    //   formData[name] = DataState.formElement[name].value;
+    // }
+    // Swal.fire({
+    //   title: 'Successfully!',
+    //   text: 'You Shall Pass Data:',
+    //   html: `FormValid:${DataState.formValid} `+`Data:`+JSON.stringify(formData),
+    //   icon: 'success',
+    //   confirmButtonText: 'Cool'
+    // }).then(() => {
+    //   Swal.fire({
+    //     title:"Back to Home page",
+    //     icon: 'warning'
+    //   }).then(() => {
+    //     navigate("/");
+    //   })
+    // });
 
-    console.log('FormValid:',DataState.formValid,'!!!!Send Data:',formData);
+    // console.log('FormValid:',DataState.formValid,'!!!!Send Data:',formData);
+    // }
+    // if(DataState.formValid === false){
+    //   Swal.fire({
+    //     title: 'Error!',
+    //     text: 'Do you want to continue',
+    //     icon: 'error',
+    //     confirmButtonText: 'OK'
+    //   })
+    //   console.log('ผิดพลาดข้อมูลไม่ครบถ้วนหรือข้อมูลไม่ถูกต้อง')
+    // }
+    try{
+      if(DataState.formValid === true){
+        await axios.post(`http://${host}:${port}/users`,{
+
+        });
+      }
+      if(DataState.formValid === false){
+
+      }
+    }catch(err){
+      if(err.response){
+        console.log(err.response.data.msg)
+      }
     }
-    if(DataState.formValid === false){
-      Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      })
-      console.log('ผิดพลาดข้อมูลไม่ครบถ้วนหรือข้อมูลไม่ถูกต้อง')
-    }
-    
   }
+
     return ( 
       
         <div className="registerPage">
@@ -213,6 +250,7 @@ const Register = () => {
           </div>
         </div>
 
+        <Card className="p-2 my-2">
         {/* Password input */}
         <div className="form-outline mb-4">
         <div className="form-group">
@@ -222,7 +260,25 @@ const Register = () => {
           <div className="invalid-feedback">{getErrorMessage('password')}</div>
           </div>
         </div>
-        
+
+        {/* ConfirmPassword */}
+        <div className="form-outline mb-4">
+        <div className="form-group">
+        <label className="form-label" htmlFor="confirmPassword">Confirm Password</label>
+          <input type="password" 
+          name="confirmPassword" 
+          id="confirmPassword" 
+          placeholder="โปรดกรอกรหัสผ่านอีกครั้ง" 
+          className={DataState.formElement['confirmPassword'].touched?getInputClass('confirmPassword'):'form-control'} 
+          onChange={onFormChange} 
+          disabled={DataState.formElement.password.validators.emptyValue?true:false}
+          />
+          {String(DataState.formElement['confirmPassword'].validators.emptyValue)}
+          <div className="invalid-feedback">{getErrorMessage('confirmPassword')}</div>
+          </div>
+        </div>
+        </Card>
+
         {/* Password input Repeat*/}
         {/* <div className="form-outline mb-4">
         <div className="form-group">
@@ -258,5 +314,5 @@ const Register = () => {
       
      );
 }
- 
+
 export default Register;
