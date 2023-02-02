@@ -203,12 +203,24 @@ const Register = () => {
     // }
     try{
       if(DataState.formValid === true){
+        const formData = {};
+        for(let name in DataState.formElement){
+            formData[name] = DataState.formElement[name].value;
+            console.log("Name",name,":",DataState.formElement[name].value);
+        }
+
+        console.log("!!!!Send Data:",formData);
         await axios.post(`http://${host}:${port}/users`,{
 
         });
       }
       if(DataState.formValid === false){
-
+        Swal.fire({
+          title: 'Error!',
+          text: 'ผิดพลาดข้อมูลไม่ครบถ้วนหรือข้อมูลไม่ถูกต้อง',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
       }
     }catch(err){
       if(err.response){
@@ -245,17 +257,23 @@ const Register = () => {
           <div className="form-group">
           <label className="form-label" htmlFor="email">Email</label>
           <input type="text" name="email" id="email" placeholder="อีเมล์" className={DataState.formElement['email'].touched?getInputClass('email'):'form-control'} onChange={onFormChange}/>
+          <Form.Text id="EmailHelpBlock" muted>
+          We'll never share your email with anyone else.
+      </Form.Text><br/>
           {String(DataState.formElement['email'].validators.emptyValue)}
           <div className="invalid-feedback">{getErrorMessage('email')}</div>
           </div>
         </div>
 
-        <Card className="p-2 my-2">
         {/* Password input */}
         <div className="form-outline mb-4">
         <div className="form-group">
         <label className="form-label" htmlFor="password">Password</label>
           <input type="password" name="password" id="password" placeholder="รหัสผ่าน" className={DataState.formElement['password'].touched?getInputClass('password'):'form-control'} onChange={onFormChange}/>
+          <Form.Text id="passwordHelpBlock" muted>
+        Your password must be 8-20 characters long, contain letters and numbers,
+        and must not contain spaces, special characters, or emoji.
+      </Form.Text><br/>
           {String(DataState.formElement['password'].validators.emptyValue)}
           <div className="invalid-feedback">{getErrorMessage('password')}</div>
           </div>
@@ -273,11 +291,11 @@ const Register = () => {
           onChange={onFormChange} 
           disabled={DataState.formElement.password.validators.emptyValue?true:false}
           />
-          {String(DataState.formElement['confirmPassword'].validators.emptyValue)}
+          {DataState.formElement['password'].validators.emptyValue?<div className="text-warning">โปรดกรอกรหัสผ่านช่องเเรก</div>:null}
           <div className="invalid-feedback">{getErrorMessage('confirmPassword')}</div>
           </div>
         </div>
-        </Card>
+       
 
         {/* Password input Repeat*/}
         {/* <div className="form-outline mb-4">
@@ -292,12 +310,12 @@ const Register = () => {
         {}
       
         {/* Submit Button */}
-        <Button type="submit" className="btn btn-primary btn-block mb-4">Submit</Button>
+        <Button type="submit" className="btn btn-primary btn-block mb-4" disabled={!DataState.formValid?true:false}>Submit</Button>
         {/* Register Buttons */}
         </Form>
       </Card>
       <div className="mx-3 mb-3 fw-light">
-          <a href="/">-->Go home</a>
+          <a href="/"> (-->Go home)</a>
         </div>
         <div className="d-flex justify-content-center">
           <Card className="px-2 text-center">
