@@ -211,8 +211,19 @@ const Register = () => {
 
         console.log("!!!!Send Data:",formData);
         await axios.post(`http://${host}:${port}/users`,{
-
+          name : formData.username,
+          email : formData.email,
+          password : formData.password,
+          confPassword : formData.confirmPassword
         });
+        Swal.fire({
+            title: 'Successfully!',
+            text: 'You Shall Pass',
+            icon: 'success',
+            confirmButtonText: 'ย้อนกลับไปที่หน้าหลัก'
+          }).then(()=>{
+            navigate("/");
+          })
       }
       if(DataState.formValid === false){
         Swal.fire({

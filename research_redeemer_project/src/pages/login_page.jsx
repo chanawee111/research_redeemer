@@ -1,24 +1,35 @@
 import React,{useState} from "react";
-import {Card} from 'react-bootstrap'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {Card} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
+import {host,port} from '../config/apiConfig';
 import '../styles/login_page.css'
 
 
+
 const Login_Page = () => {
-  const [DataState,SetDataState] = useState(
-    {
-      username: '',
-      password: ''
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [msg,setMsg] = useState('');
+  const navigate = useNavigate();
+
+  const Auth = async (evnet) => {
+    evnet.preventDefault();
+    try{
+      console.log("Login Submit Data:",email,password);
+      await axios.post(`http://${host}:${port}/login`,{
+        email : email,
+        password : password
+      });
+      navigate('/');
+    }catch(err){
+      if(err.response){
+        setMsg(err.response.data.msg);
+      }
     }
-  )
-  function onInputChange(event) {
-     SetDataState({
-        ...DataState,
-        [event.target.name]: event.target.value
-      })
-     console.log('username:',DataState.username,'password:',DataState.password)
   }
 
     return(
@@ -28,13 +39,13 @@ const Login_Page = () => {
         <div className="fs-1 text-center">Sign in</div>
          <Container>
           <Card className="p-3 m-3 bg-light shadow-sm">
-      <Form>
+      <Form onSubmit={Auth}>
 
       {/* Email input */}
       <div className="form-outline mb-4">
         <div className="form-group">
-        <label className="form-label" htmlFor="username">User name</label>
-        <input type="text" name="username" id="username" className="form-control is-valid" onChange={onInputChange}/>
+        <label className="form-label" htmlFor="username">Email or Username</label>
+        <input type="text" name="username" id="username" className="form-control" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)}/>
         <div className="valid-feedback">User Founded</div>
         </div>
       </div>
@@ -43,7 +54,7 @@ const Login_Page = () => {
       <div className="form-outline mb-4">
       <div className="form-group">
       <label className="form-label" htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" className="form-control is-invalid" onChange={onInputChange}/>
+      <input type="password" name="password" id="password" className="form-control" placeholder="*******" value={password} onChange={(e)=> setPassword(e.targete.value)}/>
       <div className="invalid-feedback">Password Invalid</div>
       </div>
       </div>
