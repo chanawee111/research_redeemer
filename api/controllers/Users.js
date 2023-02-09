@@ -32,6 +32,7 @@ export const Register = async(req, res) => {
  
 export const Login = async(req, res) => {
     try {
+        console.log('API GET Request:',req.body.email)
         const user = await Users.findAll({
             where:{
                 email: req.body.email

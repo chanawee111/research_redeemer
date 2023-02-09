@@ -14,6 +14,9 @@ import Register_Page from './pages/register_page';
 import Edit_User from './pages/__test__/editUserPage'
 import Error404 from './pages/error404';
 
+// Import Administrator Pages to route
+import DashboardAdmin from './admin/pages/Dashboard';
+
 import EmptyRooms from './components/Home/homeComponents/empty_Room';
 import NonEmptyRooms from './components/Home/homeComponents/nonEmpty_Room';
 
@@ -36,7 +39,10 @@ class App extends React.Component {
           <Route element={<WithoutNav/>}>
             <Route path="login" element={<Login_Page/>}/>
             <Route path="register" element={<Register_Page/>}/>
-          </Route>
+            <Route path="dashboard_admin" element={<DashboardAdmin/>}>
+          </Route>             
+          </Route>   
+          
         </Routes>
     </Router>
     </Provider>  

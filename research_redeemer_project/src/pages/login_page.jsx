@@ -24,7 +24,7 @@ const Login_Page = () => {
         email : email,
         password : password
       });
-      navigate('/');
+      navigate('/dashboard_admin');
     }catch(err){
       if(err.response){
         setMsg(err.response.data.msg);
@@ -54,7 +54,7 @@ const Login_Page = () => {
       <div className="form-outline mb-4">
       <div className="form-group">
       <label className="form-label" htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" className="form-control" placeholder="*******" value={password} onChange={(e)=> setPassword(e.targete.value)}/>
+      <input type="password" name="password" id="password" className="form-control" placeholder="*******" value={password} onChange={(e) => setPassword(e.target.value)}/>
       <div className="invalid-feedback">Password Invalid</div>
       </div>
       </div>
@@ -63,19 +63,19 @@ const Login_Page = () => {
       <div className="row mb-4">
         <div className="col d-flex justify-content-center">
           {/* Checkbox */}
-          <div className="form-check">
+          {/* <div className="form-check">
             <input className="form-check-input" type="checkbox" defaultValue id="form2Example31" defaultChecked />
             <label className="form-check-label" htmlFor="form2Example31"> Remember me </label>
-          </div>
-        </div>
-        <div className="col">
-          {/* Simple link */}
-          <a href="#!">Forgot password?</a>
+          </div> */}
         </div>
       </div>
       {/* Submit Button */}
-      <Button type="button" className="btn btn-primary btn-block mb-4" onClick={()=>{console.log("data",DataState)}}>Sign in</Button>
+      <Button type="submit" className="btn btn-primary btn-block mb-4 is-success">Sign in</Button>
       {/* Register Buttons */}
+      <div className="col">
+          {/* Simple link */}
+          <a href="#!">Forgot password?</a>
+        </div>
       </Form>
     </Card>
     <div className="mx-3 mb-3 fw-light">

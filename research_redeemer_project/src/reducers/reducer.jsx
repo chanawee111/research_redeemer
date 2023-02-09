@@ -1,4 +1,4 @@
-const initialState ={
+const initialState = {
     users : [],
     isLoading : false,
     error : {status:false,message:''},
