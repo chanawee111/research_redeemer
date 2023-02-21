@@ -13,6 +13,12 @@ const Users = db.define('users',{
     password:{
         type: DataTypes.STRING
     },
+    role_name:{
+        type: DataTypes.STRING
+    },
+    role_id:{
+        type: Sequelize.INTEGER
+    },
     refresh_token:{
         type: DataTypes.TEXT
     }

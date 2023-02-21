@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 export const getUsers = async(req, res) => {
     try {
         const users = await Users.findAll({
-            attributes:['id','name','email']
+            attributes:['id','name','email','role_name','role_id']
         });
         res.json(users);
     } catch (error) {
@@ -22,7 +22,9 @@ export const Register = async(req, res) => {
         await Users.create({
             name: name,
             email: email,
-            password: hashPassword
+            password: hashPassword,
+            role_name: "user",
+            role_id: 1
         });
         res.json({msg: "Registration Successful"});
     } catch (error) {
